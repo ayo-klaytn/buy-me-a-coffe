@@ -2,7 +2,7 @@ require("@nomicfoundation/hardhat-toolbox");
 require("dotenv").config();
 
 const BAOBAB_URL = process.env.BAOBAB_URL;
-const PRIAVTE_KEY = process.env.PRIAVTE_KEY;
+const PRIVATE_KEY = process.env.PRIVATE_KEY;
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
@@ -11,7 +11,7 @@ module.exports = {
   networks: {
     baobab: {
       url: BAOBAB_URL,
-      accounts: [PRIAVTE_KEY],
+      accounts: [PRIVATE_KEY],
     }
   }
 };
