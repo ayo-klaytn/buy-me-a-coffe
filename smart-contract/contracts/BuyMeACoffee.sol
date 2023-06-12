@@ -1,9 +1,6 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.9;
 
-// Uncomment this line to use console.log
-// import "hardhat/console.sol";
-
 // Deployed at this address: 0xaB720954D64F14ADb21311D81F65d5EB006446B6;
 
 contract BuyMeACoffee {
@@ -33,7 +30,7 @@ contract BuyMeACoffee {
     // id 
     uint public coffeeId;
 
-    // buy coffee
+    // buy coffee function
     function buyCoffee(string memory name, string memory message) public payable {
         require(msg.value > 0, "Tip must be greater than zero");
 

@@ -12,7 +12,7 @@ async function getBalance(address) {
     return hre.ethers.utils.formatEther(balanceBigInt)
 }
 
-async function printBalances(addresses) {
+async function getBalances(addresses) {
   let idx = 0;
 
   for (const address of addresses) {
@@ -21,7 +21,7 @@ async function printBalances(addresses) {
   }
 }
 
-async function printCoffee(memos) {
+async function getAllCoffee(memos) {
   for (const memo of memos) {
       const timestamp = memo.timestamp;
       const sender = memo.sender;
@@ -47,41 +47,36 @@ async function main() {
 
   const addressses = [owner.address, tipper1.address, buyMeACoffe.address];
   console.log("======GET BALANCE=======");
-  await printBalances(addressses);
-  console.log(addressses);
+  await getBalances(addressses);
 
   // Buy Coffee for owner
 
   const tip = {value: hre.ethers.utils.parseEther("1")}
-  await buyMeACoffe.connect(tipper1).buyCoffee("Pam", "Hi Baddest", tip);
-  await buyMeACoffe.connect(tipper2).buyCoffee("Heyo", "Hi Ayo", tip);
-  await buyMeACoffe.connect(tipper3).buyCoffee("Oxpampam", "Hi Ox", tip);
+  await buyMeACoffe.connect(tipper1).buyCoffee("Alice", "Hi Jude", tip);
+  await buyMeACoffe.connect(tipper2).buyCoffee("Bob", "Hi Alice", tip);
+  await buyMeACoffe.connect(tipper3).buyCoffee("Japhet", "Hi Ox", tip);
 
   // check balance after tipping 
   console.log("======GET BALANCE AFTER TIPPING=======");
-  await printBalances(addressses);
-  console.log(addressses);
+  await getBalances(addressses);
 
   // withdraw coffee tips
   await buyMeACoffe.connect(owner).withdrawCoffeTips();
 
   // check balance after tipping 
-  console.log("======GET BALANCE AFTER WITHDRAWING TIPS=======");
-  await printBalances(addressses);
-  console.log(addressses);
+  console.log("======GET BALANCE AFTER WITHDRAWING TIP=======");
+  await getBalances(addressses);
 
+  // get the current coffee tx id.
   const coffeeId = await buyMeACoffe.coffeeId()
   const id = coffeeId.toString();
 
   console.log(coffeeId.toString());
 
+  // get all existing coffee tx
   const allCoffee = await buyMeACoffe.getAllCoffee(id);
   
-  await printCoffee(allCoffee);
-
-
-
-
+  await getAllCoffee(allCoffee);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
