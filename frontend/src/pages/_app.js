@@ -1,16 +1,10 @@
 import '@/styles/globals.css'
-import { Web3OnboardProvider } from '@web3-onboard/react'
+
+import { Web3OnboardProvider, init } from '@web3-onboard/react'
 import coinbaseWalletModule from "@web3-onboard/coinbase";
 import walletConnectModule from "@web3-onboard/walletconnect";
 import injectedModule from "@web3-onboard/injected-wallets";
-import { init } from '@web3-onboard/react'
 
-
-export default function App({ Component, pageProps }) {
-
-const ETH_MAINNET_RPC_URL = `https://ethereum-mainnet-rpc.allthatnode.com/1d322388ZEPI2cs0OHloJ6seI4Wfy36N`;
-const KLAYTN_MAINNET_URL = `https://klaytn-mainnet-rpc.allthatnode.com:8551/1d322388ZEPI2cs0OHloJ6seI4Wfy36N`;
-const KLAYTN_BAOBAB_URL = `https://klaytn-baobab-rpc.allthatnode.com:8551/1d322388ZEPI2cs0OHloJ6seI4Wfy36N`;
 
 const coinbaseWalletSdk = coinbaseWalletModule();
 const walletConnect = walletConnectModule();
@@ -18,6 +12,9 @@ const injected = injectedModule();
 
 const modules = [coinbaseWalletSdk, walletConnect, injected];
 
+const ETH_MAINNET_RPC_URL = `https://ethereum-mainnet-rpc.allthatnode.com/1d322388ZEPI2cs0OHloJ6seI4Wfy36N`;
+const KLAYTN_MAINNET_URL = `https://klaytn-mainnet-rpc.allthatnode.com:8551/1d322388ZEPI2cs0OHloJ6seI4Wfy36N`;
+const KLAYTN_BAOBAB_URL = `https://klaytn-baobab-rpc.allthatnode.com:8551/1d322388ZEPI2cs0OHloJ6seI4Wfy36N`;
 
   const web3Onboard =  init({
     wallets: modules,
@@ -57,6 +54,8 @@ const modules = [coinbaseWalletSdk, walletConnect, injected];
     }
   })
 
+
+export default function App({ Component, pageProps }) {
   return (
     <Web3OnboardProvider web3Onboard={web3Onboard}>
       <Component {...pageProps} />

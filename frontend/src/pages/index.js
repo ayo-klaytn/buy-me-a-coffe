@@ -1,5 +1,5 @@
 
-import { init, useConnectWallet } from '@web3-onboard/react'
+import { useConnectWallet } from '@web3-onboard/react'
 import abi from "../utils/BuyMeACoffee.json"
 
 import { ethers } from "ethers";
@@ -45,10 +45,9 @@ export default function Home() {
   
     
     if (ethersProvider) {
-
       try {
         const getCoffeContract = async () => {
-          
+
           const signer =  await ethersProvider.getSigner();
     
           const buyMeACoffee = new ethers.Contract(contractAddress, contractABI, signer);
@@ -60,16 +59,14 @@ export default function Home() {
       } catch (error) {
         console.log(error);
       }
-
     }
 
   }, [wallet])
 
 
   useEffect(() => {
-
     const onNewCoffee = (from, timestamp, name, message) => {
-      console.log("Memo received: ", from, timestamp, name, message);
+      console.log("Coffee received: ", from, timestamp, name, message);
       setGetCoffee((prevState) => [
         ...prevState,
         {
@@ -98,7 +95,6 @@ export default function Home() {
   const onMessageChange = (event) => {
     setMessage(event.target.value);
   }
-
 
   const buyCoffee = async (e) => {
     e.preventDefault();
@@ -132,7 +128,6 @@ export default function Home() {
       console.log(error);
     }
   };
-
 
 
   return (
